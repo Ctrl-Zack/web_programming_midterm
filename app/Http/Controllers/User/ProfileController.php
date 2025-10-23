@@ -59,7 +59,7 @@ class ProfileController extends Controller
 
                 $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
                 $file->storeAs('profile_pictures', $filename, 'public');
-                $member->profile_picture = 'profile_pictures/' . $filename;
+                $member->profile_picture = $filename;
             }
 
             $member->address = $validated['address'] ?? $member->address;
