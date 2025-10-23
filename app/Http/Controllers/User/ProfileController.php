@@ -51,9 +51,8 @@ class ProfileController extends Controller
 
         if ($member) {
             if ($request->hasFile('profile_picture')) {
-                $filename = time() . '.' . $request->file('profile_picture')->extension();
-                $request->file('profile_picture')->storeAs('profile_pictures', $filename, 'public');
-                $member->profile_picture = $filename;
+                $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+                $validated['profile_picture'] = $path;
             }
 
             $member->address = $validated['address'] ?? $member->address;
