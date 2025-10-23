@@ -52,8 +52,7 @@ class ProfileController extends Controller
         if ($member) {
             if ($request->hasFile('profile_picture')) {
                 $filename = time() . '.' . $request->file('profile_picture')->extension();
-                $request->file('profile_picture')->storeAs('public/profile_pictures', $filename);
-                Storage::disk('public')->putFileAs('profile_pictures', $request->file('profile_picture'), $filename);
+                $request->file('profile_picture')->storeAs('profile_pictures', $filename, 'public');
                 $member->profile_picture = $filename;
             }
 
