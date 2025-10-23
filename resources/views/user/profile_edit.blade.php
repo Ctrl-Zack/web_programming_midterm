@@ -6,7 +6,6 @@
     <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow p-8">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Edit Profile</h2>
 
-        {{-- Validation errors --}}
         @if ($errors->any())
             <div class="mb-4">
                 <div class="bg-red-50 border border-red-200 text-red-700 p-3 rounded">
@@ -52,7 +51,6 @@
                 </div>
             </div>
 
-            {{-- Drag & Drop Upload --}}
             <div>
                 <label class="block text-gray-600 font-medium mb-2">Profile Picture</label>
 
@@ -69,7 +67,6 @@
                     </div>
                 </div>
 
-                {{-- preview area --}}
                 <div class="mt-4 flex items-center gap-4">
                     <img id="preview" src="{{ ($member && $member->profile_picture) ? asset('storage/profile_pictures/' . $member->profile_picture) : asset('default-avatar.png') }}"
                          class="w-24 h-24 rounded-full object-cover border" alt="preview">
@@ -103,7 +100,6 @@
 
 </div>
 
-{{-- Inline script OK in Blade: drag & drop + preview --}}
 <script>
     (function () {
         const dropzone = document.getElementById('dropzone');
@@ -112,21 +108,17 @@
 
         if (!dropzone || !fileInput) return;
 
-        // click to open file dialog
         dropzone.addEventListener('click', () => fileInput.click());
 
-        // dragover highlight
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropzone.classList.add('border-indigo-400', 'bg-indigo-50');
         });
 
-        // dragleave remove highlight
         dropzone.addEventListener('dragleave', (e) => {
             dropzone.classList.remove('border-indigo-400', 'bg-indigo-50');
         });
 
-        // drop files
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropzone.classList.remove('border-indigo-400', 'bg-indigo-50');
@@ -134,11 +126,10 @@
             const files = e.dataTransfer.files;
             if (!files || files.length === 0) return;
 
-            fileInput.files = files; // assign to input so form will submit
+            fileInput.files = files;
             showPreview(files[0]);
         });
 
-        // file input change => preview
         fileInput.addEventListener('change', (e) => {
             if (!e.target.files || !e.target.files[0]) return;
             showPreview(e.target.files[0]);

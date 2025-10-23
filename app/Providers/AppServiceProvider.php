@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Artisan;
-
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             try {
                 Artisan::call('storage:link');
             } catch (\Exception $e) {
-                \Log::error('Gagal membuat symbolic link storage: '.$e->getMessage());
+                Log::error('Can\'t create symlink: '.$e->getMessage());
             }
         }
     }
