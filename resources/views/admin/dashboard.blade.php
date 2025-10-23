@@ -80,7 +80,7 @@
                 'text' => 'text-emerald-700',
                 'icon' => '📩',
                 'desc' => 'View and manage all requested books.',
-                'route' => route('admin.loans.index')
+                'route' => route('admin.request-book.index')
             ],
         ];
     @endphp

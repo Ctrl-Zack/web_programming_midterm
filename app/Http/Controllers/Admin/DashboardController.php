@@ -11,7 +11,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Buat statistik
         $stats = [
             'books' => Book::count(),
             'members' => Member::count(),
@@ -19,13 +18,11 @@ class DashboardController extends Controller
             'returned' => Loan::where('status', 'returned')->count(),
         ];
 
-        // Ambil aktivitas terbaru
         $recentActivities = Loan::with('loanDetails.book', 'member')
             ->latest()
             ->take(5)
             ->get();
 
-        // Kirim ke view
         return view('admin.dashboard', compact('stats', 'recentActivities'));
     }
 }
