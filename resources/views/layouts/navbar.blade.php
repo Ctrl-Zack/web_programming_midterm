@@ -1,6 +1,11 @@
 <nav id="navbar" class="fixed top-0 left-0 w-full bg-white shadow-md p-4 flex justify-between items-center transition-transform duration-300 z-50">
     <h1 class="text-2xl font-bold text-emerald-500">
-        <a href="{{ Auth::user()->role === 'admin' ? route('admin.dashboard') : route('user.dashboard') }}" class="hover:underline">Libry</a>
+        @auth
+            <a href="{{ Auth::user()->role === 'admin' ? route('admin.dashboard') : route('user.dashboard') }}" class="hover:underline">Libry</a>
+        @endauth
+        @guest
+            <a href="#" class="hover:underline">Libry</a>
+        @endguest
     </h1>
 
     <button id="menu-btn" class="block md:hidden text-gray-700 hover:text-emerald-500 focus:outline-none">
