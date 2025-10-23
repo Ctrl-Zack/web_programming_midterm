@@ -51,8 +51,15 @@ class ProfileController extends Controller
 
         if ($member) {
             if ($request->hasFile('profile_picture')) {
-                $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-                $validated['profile_picture'] = $path;
+                $file = $request->file('profile_picture');
+
+                if ($member->profile_picture && Storage::disk('public')->exists($member->profile_picture)) {
+                    Storage::disk('public')->delete($member->profile_picture);
+                }
+
+                $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->storeAs('profile_pictures', $filename, 'public');
+                $member->profile_picture = 'profile_pictures/' . $filename;
             }
 
             $member->address = $validated['address'] ?? $member->address;
